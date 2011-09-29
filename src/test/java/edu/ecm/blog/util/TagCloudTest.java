@@ -88,15 +88,4 @@ public class TagCloudTest {
 	      Assert.assertEquals(5, tagCloud.size());
 	      Assert.assertTrue(tagCloud.contains("java"));
 	   }
-	   
-	   public class DerbyTest {
-		   @Test
-		   public void createDb() throws ClassNotFoundException, SQLException {
-		      // chargement du driver
-		      Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-
-		      // création d'une connexion
-		      DriverManager.getConnection("jdbc:derby:target/testdb;create=true");
-		   }
-		}
-	}
+}
