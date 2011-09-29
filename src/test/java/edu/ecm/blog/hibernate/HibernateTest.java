@@ -11,7 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import edu.ecm.blog.domain.Author;
@@ -22,10 +22,10 @@ import edu.ecm.blog.domain.Post;
 
 public class HibernateTest {
 	
-	private static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
-	@BeforeClass
-	public static void createSessionFactory() {
+	@Before
+	public void createSessionFactory() {
 	   Configuration configuration = new Configuration();
 
 	   configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.DerbyDialect");

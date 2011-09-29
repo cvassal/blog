@@ -2,33 +2,52 @@ package edu.ecm.blog.service;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import edu.ecm.blog.domain.Post;
+import edu.ecm.blog.hibernate.HibernateUtil;
 
 public class PostService {
-	   public void save(Post post) {
-	      // TODO
-	   }
 
-	   public void delete(Long id) {
-	      // TODO
-	   }
+	SessionFactory sessionFactory;
+	
+	public void save(Post post) {
+		Session session = sessionFactory.openSession();
 
-	   public List find(int pageIndex, int pageSize) {
-		
-	      // TODO
-		  return null;
-	   }
+		session.save(post);
 
-	   public int count() {
-	      // TODO
-		  return 0;
-	   }
+		session.close();
+	}
+
+	public void delete(Long id) {
+		Session session = sessionFactory.openSession();
+
+		session.delete(id);
+
+		session.close();
+	}
+
+	public List find(int pageIndex, int pageSize) {
+		Session session = sessionFactory.openSession();
+
+		Criteria criteria = session.createCriteria(Post.class);
+
+		// criteria.add(Restrictions.eq("", ));
+		return null;
+	}
+
+	public int count() {
+		Session session = sessionFactory.openSession();
+		Long count = (Long) session.createQuery(
+				"select count(*) from Post").uniqueResult();
+		return count.intValue();
+
+	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
-		// TODO Auto-generated method stub
-		
+		this.sessionFactory = sessionFactory;
 	}
 
 }
