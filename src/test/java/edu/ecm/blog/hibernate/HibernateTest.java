@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,8 +16,6 @@ import org.junit.Test;
 
 import edu.ecm.blog.domain.Author;
 import edu.ecm.blog.domain.Post;
-
-
 
 
 public class HibernateTest {
@@ -56,17 +54,14 @@ public class HibernateTest {
 	
 	@After
 	public void cleanDb() {
-	    Session session = sessionFactory.openSession();
-
-	    Transaction transaction = session.beginTransaction();
-
-	    session.createQuery("delete from Author").executeUpdate();
-
-	    transaction.commit();
-
-	    session.close();
-
-	    sessionFactory.close();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		session.createQuery("delete from Post").executeUpdate();
+		
+		transaction.commit();
+		
+		session.close();
 	}
 
 	@Test

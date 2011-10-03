@@ -1,8 +1,5 @@
 package edu.ecm.blog.util;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 import org.junit.Assert;
 import org.junit.Test;
 

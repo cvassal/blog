@@ -2,36 +2,47 @@ package edu.ecm.blog.service;
 
 import java.util.Date;
 
-import org.hibernate.Session;
+import javax.inject.Inject;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.classic.Session;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import edu.ecm.blog.domain.Author;
 import edu.ecm.blog.domain.Post;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 public class PostServiceTest {
-   private SessionFactory sessionFactory;
+	
+	@Inject
+	private SessionFactory sessionFactory;
+   
+	@Inject
+	private PostService postService;
+   
 
-   @Before
-   public void createSessionFactory() {
-      Configuration configuration = new Configuration();
-
-      configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.DerbyDialect");
-      configuration.setProperty("hibernate.connection.url", "jdbc:derby:target/testdb;create=true");
-      configuration.setProperty("hibernate.connection.driver_class", "org.apache.derby.jdbc.EmbeddedDriver");
-      configuration.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-
-      configuration.addAnnotatedClass(Author.class);
-      configuration.addAnnotatedClass(Post.class);
-
-      sessionFactory = configuration.buildSessionFactory();
-   }
-
+//   @Before
+//   public void createSessionFactory() {
+//      Configuration configuration = new Configuration();
+//
+//      configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.DerbyDialect");
+//      configuration.setProperty("hibernate.connection.url", "jdbc:derby:target/testdb;create=true");
+//      configuration.setProperty("hibernate.connection.driver_class", "org.apache.derby.jdbc.EmbeddedDriver");
+//      configuration.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+//
+//      configuration.addAnnotatedClass(Author.class);
+//      configuration.addAnnotatedClass(Post.class);
+//
+//      sessionFactory = configuration.buildSessionFactory();
+//   }
+	
    @After
    public void cleanDb() {
       Session session = sessionFactory.openSession();
@@ -49,8 +60,6 @@ public class PostServiceTest {
    
    @Test
    public void save() {
-       PostService postService = new PostService();
-       postService.setSessionFactory(sessionFactory);
 
        Post post = new Post();
        post.setTitle("un post");
@@ -61,8 +70,6 @@ public class PostServiceTest {
    
    @Test
    public void delete() {
-       PostService postService = new PostService();
-       postService.setSessionFactory(sessionFactory);
 
        Post post = new Post();
        post.setTitle("un post");
@@ -81,8 +88,6 @@ public class PostServiceTest {
    
    @Test
    public void find() {
-       PostService postService = new PostService();
-       postService.setSessionFactory(sessionFactory);
 
        Post post = new Post();
        post.setTitle("un post");
@@ -103,13 +108,11 @@ public class PostServiceTest {
    
    @Test
    public void count() {
-       PostService postService = new PostService();
-       postService.setSessionFactory(sessionFactory);
 
        Post post = new Post();
        post.setTitle("un post");
        post.setDate(new Date());
-
+       
        postService.save(post);
 
        post = new Post();

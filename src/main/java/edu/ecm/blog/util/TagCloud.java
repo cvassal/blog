@@ -2,7 +2,6 @@ package edu.ecm.blog.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
 
 
 
@@ -50,7 +49,7 @@ public class TagCloud {
 
 	public boolean contains(String monTag) {
 		for (String tag : tags) {
-			if(tag.equals(monTag)){
+			if(tag.contains(monTag)){
 				return true;
 			}
 		}
@@ -75,5 +74,10 @@ public class TagCloud {
 	public void shuffle() {
 		java.util.Collections.shuffle(tags);
 	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+	
 	
 }
